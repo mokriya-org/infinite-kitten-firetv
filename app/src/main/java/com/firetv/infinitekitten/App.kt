@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class App : Application() {
     companion object {
-        var instance: App? = null
-        val context: Context get() = instance!!.applicationContext
+        lateinit var instance: App
+        val context: Context get() = instance.applicationContext
         var retrofit: Retrofit? = null
     }
 
