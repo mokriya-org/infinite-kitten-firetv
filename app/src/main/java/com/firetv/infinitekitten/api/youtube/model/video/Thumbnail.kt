@@ -1,4 +1,4 @@
-package com.firetv.infinitekitten.api.model.video
+package com.firetv.infinitekitten.api.youtube.model.video
 
 import java.net.URL
 

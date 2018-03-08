@@ -1,8 +1,8 @@
-package com.firetv.infinitekitten.api.model.video
+package com.firetv.infinitekitten.api.youtube.model.video
 
 /**
  * Created by diogobrito on 08/03/2018.
  */
-data class VideoList(
+data class VideosResponse(
         val items: List<VideoItem>
 )
