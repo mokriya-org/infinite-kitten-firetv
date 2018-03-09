@@ -2,6 +2,7 @@ package com.firetv.infinitekitten
 
 import android.app.Application
 import android.content.Context
+import com.firetv.infinitekitten.api.flickr.Flickr
 import com.firetv.infinitekitten.manager.PlaylistManager
 import com.firetv.infinitekitten.api.flickr.model.SearchResponse as FlickrSearchResponse
 import com.firetv.infinitekitten.api.youtube.model.search.SearchResponse as YoutubeSearchResponse
@@ -17,5 +18,7 @@ class App : Application() {
         super.onCreate()
         instance = this
         playlistManager = PlaylistManager(this)
+
+        Flickr.initUrls()
     }
 }

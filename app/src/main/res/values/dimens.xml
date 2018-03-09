@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimen_button_width">300dp</dimen>
+    <dimen name="dimen_button_height">150dp</dimen>
+    <dimen name="dimen_gif_side">100dp</dimen>
+    <dimen name="dimen_loading_indicator_side">170dp</dimen>
+</resources>
