@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_loading.*
  */
 class LoadingFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_loading, container, false)
     }
 
@@ -25,12 +25,11 @@ class LoadingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         setupUI()
-
     }
 
-    private fun setupUI() {
+    fun setupUI() {
         val bgImageUrl = Flickr.getFlickPhotoUrl()
-        Glide.with(context).load(bgImageUrl).into(background)
+        if (bgImageUrl != null) Glide.with(context).load(bgImageUrl).into(background)
 
         loadingIndicator.startAnimation(LoadingIndicatorAnimation(loadingIndicator).apply {
             duration = 500

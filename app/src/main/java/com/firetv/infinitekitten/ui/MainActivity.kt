@@ -17,10 +17,8 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         setupUI()
         videosMeButton.hasFocus()
-        buildPlaylist()
     }
 
     private fun setupUI() {
@@ -31,6 +29,25 @@ class MainActivity : FragmentActivity() {
         videosHumanButton.setOnFocusChangeListener { v, hasFocus ->
             onFocusChangeListener(v, hasFocus)
         }
+
+        videosMeButton.setOnClickListener {
+            showLoading()
+            buildPlaylist(ApiConstants.CAT_PLAYLIST)
+        }
+
+        videosHumanButton.setOnClickListener {
+            showLoading()
+            buildPlaylist(ApiConstants.HUMAN_PLAYLIST)
+        }
+    }
+
+    private fun showLoading() {
+        container.visibility = View.VISIBLE
+        (supportFragmentManager.findFragmentById(R.id.loadingFragment) as LoadingFragment).setupUI()
+    }
+
+    private fun hideLoading() {
+        container.visibility = View.GONE
     }
 
     private fun onFocusChangeListener(v: View, hasFocus: Boolean) {
@@ -40,10 +57,10 @@ class MainActivity : FragmentActivity() {
         anim.fillAfter = true
     }
 
-    private fun buildPlaylist() {
+    private fun buildPlaylist(playlistId: String) {
         val youtubeMediaItemFetcher = YouTubeMediaItemFetcher(
                 context = App.context,
-                playlistId = ApiConstants.CAT_PLAYLIST
+                playlistId = playlistId
         )
 
         val intent = Intent(this, VideoPlayerActivity::class.java)
@@ -53,9 +70,11 @@ class MainActivity : FragmentActivity() {
                 val playlistManager = App.playlistManager
                 playlistManager.setParameters(result, 0)
                 startActivity(intent)
+                hideLoading()
             }
 
             override fun onFailure() {
+                hideLoading()
                 //TODO: Handle failure.
             }
         })

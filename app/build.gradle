@@ -27,6 +27,7 @@ dependencies {
     implementation "com.android.support:leanback-v17:$support_library_version"
     implementation "com.android.support:appcompat-v7:$support_library_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation "com.android.support:palette-v7:$support_library_version"
 
     //glide
     implementation "com.github.bumptech.glide:glide:$glide_version"

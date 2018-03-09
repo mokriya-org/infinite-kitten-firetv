@@ -3,7 +3,6 @@ package com.firetv.infinitekitten.api.flickr
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.firetv.infinitekitten.App
-import com.firetv.infinitekitten.App.Companion.flickrApiService
 import com.firetv.infinitekitten.api.flickr.model.PhotoSizesResponse
 import com.firetv.infinitekitten.api.flickr.model.SearchResponse
 import com.firetv.infinitekitten.utils.Constants
@@ -18,6 +17,8 @@ import java.util.*
 object Flickr {
 
     private val urlList = ArrayList<String>()
+
+    val flickrApiService by lazy { FlickrApiService.create() }
 
     fun initUrls() {
         flickrApiService.getPhotos(query = "kitten", page = 1).enqueue(object : Callback<SearchResponse> {
@@ -58,5 +59,5 @@ object Flickr {
 
     private fun isGoodResolution(width: Double, height: Double) = width >= 1920 && height >= 1080 && width / height == 16.0 / 9.0
 
-    fun getFlickPhotoUrl() = urlList[Random().nextInt(urlList.size)]
+    fun getFlickPhotoUrl() : String? = if (urlList.size > 0) urlList[Random().nextInt(urlList.size)] else null
 }
