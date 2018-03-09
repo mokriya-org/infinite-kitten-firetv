@@ -11,13 +11,13 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.devbrackets.android.playlistcore.components.image.ImageProvider;
 import com.firetv.infinitekitten.R;
-import com.firetv.infinitekitten.data.YouTubeMediaItem;
+import com.firetv.infinitekitten.data.VideoPlaylistItem;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-public class MediaImageProvider implements ImageProvider<YouTubeMediaItem> {
+public class MediaImageProvider implements ImageProvider<VideoPlaylistItem> {
     interface OnImageUpdatedListener {
         void onImageUpdated();
     }
@@ -70,7 +70,7 @@ public class MediaImageProvider implements ImageProvider<YouTubeMediaItem> {
     }
 
     @Override
-    public void updateImages(@NotNull YouTubeMediaItem playlistItem) {
+    public void updateImages(@NotNull VideoPlaylistItem playlistItem) {
         glide.load(playlistItem.getThumbnailUrl()).asBitmap().into(notificationImageTarget);
         glide.load(playlistItem.getArtworkUrl()).asBitmap().into(remoteViewImageTarget);
     }

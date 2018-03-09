@@ -6,7 +6,7 @@ import com.devbrackets.android.playlistcore.api.PlaylistItem
 /**
  * Created by diogobrito on 09/03/2018.
  */
-class YouTubeMediaItem(
+class VideoPlaylistItem(
         val youtubeId: String,
         val youtubeTitle: String?,
         val youtubeDescription: String?,

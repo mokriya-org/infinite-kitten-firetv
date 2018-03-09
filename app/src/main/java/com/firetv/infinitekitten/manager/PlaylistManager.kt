@@ -3,7 +3,7 @@ package com.firetv.infinitekitten.manager
 import android.app.Application
 import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener
 import com.devbrackets.android.playlistcore.manager.ListPlaylistManager
-import com.firetv.infinitekitten.data.YouTubeMediaItem
+import com.firetv.infinitekitten.data.VideoPlaylistItem
 import com.firetv.infinitekitten.playlist.VideoMediaPlayerApi
 import com.firetv.infinitekitten.service.MediaService
 
@@ -12,7 +12,7 @@ import com.firetv.infinitekitten.service.MediaService
  */
 
 
-class PlaylistManager(application: Application) : ListPlaylistManager<YouTubeMediaItem>(application, MediaService::class.java) {
+class PlaylistManager(application: Application) : ListPlaylistManager<VideoPlaylistItem>(application, MediaService::class.java) {
 
     fun addVideoMediaPlayerApi(videoMediaPlayerApi: VideoMediaPlayerApi) {
         mediaPlayers.add(videoMediaPlayerApi)

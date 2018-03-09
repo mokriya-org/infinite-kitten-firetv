@@ -9,14 +9,14 @@ import com.devbrackets.android.playlistcore.api.MediaPlayerApi
 import com.devbrackets.android.playlistcore.data.PlaybackState
 import com.devbrackets.android.playlistcore.listener.MediaStatusListener
 import com.devbrackets.android.playlistcore.listener.PlaylistListener
-import com.firetv.infinitekitten.data.YouTubeMediaItem
+import com.firetv.infinitekitten.data.VideoPlaylistItem
 
 /**
  * Created by diogobrito on 09/03/2018.
  */
 class VideoMediaPlayerApi(var videoView: VideoView) :
-        MediaPlayerApi<YouTubeMediaItem>,
-        PlaylistListener<YouTubeMediaItem>,
+        MediaPlayerApi<VideoPlaylistItem>,
+        PlaylistListener<VideoPlaylistItem>,
         OnPreparedListener,
         OnCompletionListener,
         OnErrorListener,
@@ -25,7 +25,7 @@ class VideoMediaPlayerApi(var videoView: VideoView) :
 
     private var prepared: Boolean = false
     private var bufferPercent: Int = 0
-    private var mediaStatusListener: MediaStatusListener<YouTubeMediaItem>? = null
+    private var mediaStatusListener: MediaStatusListener<VideoPlaylistItem>? = null
 
     override val isPlaying = videoView.isPlaying
     override val handlesOwnAudioFocus = false
@@ -69,9 +69,9 @@ class VideoMediaPlayerApi(var videoView: VideoView) :
         videoView.seekTo(milliseconds.toInt().toLong())
     }
 
-    override fun handlesItem(item: YouTubeMediaItem) = true
+    override fun handlesItem(item: VideoPlaylistItem) = true
 
-    override fun playItem(item: YouTubeMediaItem) {
+    override fun playItem(item: VideoPlaylistItem) {
         prepared = false
         bufferPercent = 0
         videoView.setVideoURI(Uri.parse(item.mediaUrl))
@@ -81,7 +81,7 @@ class VideoMediaPlayerApi(var videoView: VideoView) :
      * PlaylistListener methods used for keeping the VideoControls provided
      * by the ExoMedia VideoView up-to-date with the current playback state
      */
-    override fun onPlaylistItemChanged(currentItem: YouTubeMediaItem?, hasNext: Boolean, hasPrevious: Boolean): Boolean {
+    override fun onPlaylistItemChanged(currentItem: VideoPlaylistItem?, hasNext: Boolean, hasPrevious: Boolean): Boolean {
         val videoControls = videoView.videoControls
 
         if (videoControls != null && currentItem != null) {
@@ -101,7 +101,7 @@ class VideoMediaPlayerApi(var videoView: VideoView) :
         return false
     }
 
-    override fun setMediaStatusListener(listener: MediaStatusListener<YouTubeMediaItem>) {
+    override fun setMediaStatusListener(listener: MediaStatusListener<VideoPlaylistItem>) {
         mediaStatusListener = listener
     }
 

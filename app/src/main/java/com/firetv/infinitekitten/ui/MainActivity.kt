@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils
 import com.firetv.infinitekitten.App
 import com.firetv.infinitekitten.R
 import com.firetv.infinitekitten.api.ApiConstants
-import com.firetv.infinitekitten.data.YouTubeMediaItem
+import com.firetv.infinitekitten.data.VideoPlaylistItem
 import com.firetv.infinitekitten.playlist.YouTubeMediaItemFetcher
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -49,8 +49,7 @@ class MainActivity : FragmentActivity() {
         val intent = Intent(this, VideoPlayerActivity::class.java)
 
         youtubeMediaItemFetcher.fetch(object : YouTubeMediaItemFetcher.YouTubeMediaItemFetcherCallback {
-            override fun onSuccess(result: List<YouTubeMediaItem>, nextPageToken: String) {
-
+            override fun onSuccess(result: List<VideoPlaylistItem>, nextPageToken: String) {
                 val playlistManager = App.playlistManager
                 playlistManager.setParameters(result, 0)
                 startActivity(intent)

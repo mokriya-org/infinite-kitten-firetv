@@ -9,7 +9,7 @@ import at.huber.youtubeExtractor.YtFile
 import com.firetv.infinitekitten.api.youtube.YouTubeApiService
 import com.firetv.infinitekitten.api.youtube.model.playlist.PlaylistItemsResponse
 import com.firetv.infinitekitten.api.youtube.model.video.VideosResponse
-import com.firetv.infinitekitten.data.YouTubeMediaItem
+import com.firetv.infinitekitten.data.VideoPlaylistItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,13 +33,13 @@ class YouTubeMediaItemFetcher(
     interface YouTubeMediaItemFetcherCallback {
         fun onFailure()
 
-        fun onSuccess(result: List<YouTubeMediaItem>, nextPageToken: String)
+        fun onSuccess(result: List<VideoPlaylistItem>, nextPageToken: String)
     }
 
     interface YouTubeMediaItemCallback {
         fun onFailure()
 
-        fun onSuccess(result: YouTubeMediaItem)
+        fun onSuccess(result: VideoPlaylistItem)
     }
 
     interface YouTubeVideoItemUrlCallback {
@@ -72,7 +72,7 @@ class YouTubeMediaItemFetcher(
                             val nextPageToken = playlistItemsResponse.nextPageToken
 
                             var returnedCallbacks = 0
-                            var youtubeMediaItems = mutableListOf<YouTubeMediaItem>()
+                            var youtubeMediaItems = mutableListOf<VideoPlaylistItem>()
 
                             videoIds.forEach {
                                 fetchVideoMediaItem(it, object : YouTubeMediaItemCallback {
@@ -88,7 +88,7 @@ class YouTubeMediaItemFetcher(
                                         }
                                     }
 
-                                    override fun onSuccess(youTubeMediaItem: YouTubeMediaItem) {
+                                    override fun onSuccess(youTubeMediaItem: VideoPlaylistItem) {
                                         youtubeMediaItems.add(youTubeMediaItem)
 
                                         if (++returnedCallbacks < videoIds.size) {
@@ -126,7 +126,7 @@ class YouTubeMediaItemFetcher(
                                 }
 
                                 override fun onSuccess(url: String) {
-                                    val youtubeMediaItem = YouTubeMediaItem(
+                                    val playlistItem = VideoPlaylistItem(
                                             youtubeId = videoId,
                                             youtubeTitle = videoItem.snippet.localized.title,
                                             youtubeDescription = videoItem.snippet.localized.description,
@@ -134,7 +134,7 @@ class YouTubeMediaItemFetcher(
                                             youtubeThumbnailUrl = videoItem.snippet.thumbnails.high.url,
                                             youtubeChannelTitle = videoItem.snippet.channelTitle)
 
-                                    callback.onSuccess(youtubeMediaItem)
+                                    callback.onSuccess(playlistItem)
                                 }
                             })
                         }
@@ -146,7 +146,7 @@ class YouTubeMediaItemFetcher(
     private fun fetchVideoUrl(videoId: String, callback: YouTubeVideoItemUrlCallback) {
         val youtubeExtractor: YouTubeExtractor = object : YouTubeExtractor(context) {
             override fun onExtractionComplete(ytFiles: SparseArray<YtFile>?, videoMeta: VideoMeta?) {
-                val videoItemUrl = ytFiles?.get(22)?.url
+                val videoItemUrl = ytFiles?.get(22)?.url //Magic Number 22 represents URl YtFile
                 if (videoItemUrl == null) {
                     callback.onFailure()
                 } else {
@@ -156,12 +156,12 @@ class YouTubeMediaItemFetcher(
         }
 
         youtubeExtractor.extract(
-                buildYoutubeVideoUrl(videoId).toString(),
+                buildYouTubeVideoUrl(videoId).toString(),
                 true,
                 true)
     }
 
-    private fun buildYoutubeVideoUrl(videoId: String): Uri {
+    private fun buildYouTubeVideoUrl(videoId: String): Uri {
         return Uri.Builder()
                 .scheme("https")
                 .authority("www.youtube.com")
