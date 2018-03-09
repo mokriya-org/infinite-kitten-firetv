@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ebebeb">
+    android:background="@color/gray">
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,8 +14,8 @@
     <Button
         android:id="@+id/videosMeButton"
         style="@style/AppTheme.IKButton"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/dimen_button_width"
+        android:layout_height="@dimen/dimen_button_height"
         android:drawableStart="@drawable/ic_laughing_kitty"
         android:nextFocusRight="@id/videosHumanButton"
         android:text="@string/videos_for_me"
@@ -27,8 +27,8 @@
     <Button
         android:id="@+id/videosHumanButton"
         style="@style/AppTheme.IKButton"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/dimen_button_width"
+        android:layout_height="@dimen/dimen_button_height"
         android:drawableStart="@drawable/ic_childish"
         android:nextFocusLeft="@id/videosMeButton"
         android:text="@string/videos_for_humans"

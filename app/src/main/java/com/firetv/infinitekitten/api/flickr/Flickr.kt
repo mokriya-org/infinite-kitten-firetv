@@ -29,29 +29,26 @@ object Flickr {
 
             override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
                 Log.d(Constants.TAG, "getPhotos success")
-                val photoList = response?.body()?.photos?.photo
-                if (photoList != null) {
-                    for (photo in photoList) {
-                        flickrApiService.getPhotosSizes(photoId = photo.id).enqueue(object : Callback<PhotoSizesResponse> {
-                            override fun onResponse(call: Call<PhotoSizesResponse>?, response: Response<PhotoSizesResponse>?) {
-                                val sizes = response?.body()?.sizes?.size
-                                if (sizes != null) {
-                                    for (size in sizes) {
-                                        if (isGoodResolution(size.width.toDouble(), size.height.toDouble())) {
-                                            urlList.add(size.source)
-                                            Glide.with(App.context).load(size.source).preload()
-                                            break
-                                        }
-                                    }
+                val photoList = response?.body()?.photos?.photo ?: return
+                for (photo in photoList) {
+                    flickrApiService.getPhotosSizes(photoId = photo.id).enqueue(object : Callback<PhotoSizesResponse> {
+                        override fun onResponse(call: Call<PhotoSizesResponse>?, response: Response<PhotoSizesResponse>?) {
+                            val sizes = response?.body()?.sizes?.size ?: return
+                            for (size in sizes) {
+                                if (isGoodResolution(size.width.toDouble(), size.height.toDouble())) {
+                                    urlList.add(size.source)
+                                    Glide.with(App.context).load(size.source).preload()
+                                    break
                                 }
                             }
+                        }
 
-                            override fun onFailure(call: Call<PhotoSizesResponse>?, t: Throwable?) {
-                                // Photo doesn't get added to Url list
-                            }
-                        })
-                    }
+                        override fun onFailure(call: Call<PhotoSizesResponse>?, t: Throwable?) {
+                            // Photo doesn't get added to Url list
+                        }
+                    })
                 }
+
             }
 
         })
@@ -59,5 +56,5 @@ object Flickr {
 
     private fun isGoodResolution(width: Double, height: Double) = width >= 1920 && height >= 1080 && width / height == 16.0 / 9.0
 
-    fun getFlickPhotoUrl() : String? = if (urlList.size > 0) urlList[Random().nextInt(urlList.size)] else null
+    fun getFlickPhotoUrl(): String? = if (urlList.size > 0) urlList[Random().nextInt(urlList.size)] else null
 }
