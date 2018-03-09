@@ -35,5 +35,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
+    //YouTubeExtractor
     implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
+
+    //ExoMedia
+    implementation 'com.devbrackets.android:exomedia:4.1.0'
 }

@@ -1,5 +1,6 @@
 package com.firetv.infinitekitten.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.view.View
@@ -25,6 +26,10 @@ class MainActivity : FragmentActivity() {
 
         videosHumanButton.setOnFocusChangeListener { v, hasFocus ->
             onFocusChangeListener(v, hasFocus)
+        }
+
+        videosMeButton.setOnClickListener{
+            startActivity(Intent(this, VideoPlayerActivity::class.java))
         }
 
     }
