@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_browse_fragment"
-    android:name="com.firetv.infinitekitten.MainFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.firetv.infinitekitten.MainActivity"
-    tools:deviceIds="tv"
-    tools:ignore="MergeRootFrame" />
+    android:background="#ebebeb"
+    tools:context="com.firetv.infinitekitten.ui.MainActivity"
+    tools:deviceIds="tv">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:src="@drawable/bg_launch" />
+
+    <Button
+        android:id="@+id/videosMeButton"
+        style="@style/AppTheme.IKButton"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:drawableStart="@drawable/ic_laughing_kitty"
+        android:nextFocusRight="@id/videosHumanButton"
+        android:text="@string/videos_for_me"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/videosHumanButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/videosHumanButton"
+        style="@style/AppTheme.IKButton"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:drawableStart="@drawable/ic_childish"
+        android:nextFocusLeft="@id/videosMeButton"
+        android:text="@string/videos_for_humans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/videosMeButton"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
