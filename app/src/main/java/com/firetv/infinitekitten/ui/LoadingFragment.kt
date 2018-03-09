@@ -2,6 +2,8 @@ package com.firetv.infinitekitten.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +38,7 @@ class LoadingFragment : Fragment() {
             repeatCount = Animation.INFINITE
         })
 
+        loadingIndicator.init()
         val gifName = loadingIndicator.getSelectedGif()
         val yourData = "<html style=\"margin: 0;\">\n" +
                 "    <body style=\"margin: 0;\">\n" +
@@ -45,6 +48,8 @@ class LoadingFragment : Fragment() {
 
         loadingGif.setBackgroundColor(Color.TRANSPARENT)
         loadingGif.settings.allowFileAccess = true
-        loadingGif.loadDataWithBaseURL("file:///android_asset/gifs/", yourData, "text/html", "utf-8", null)
+        Handler(Looper.getMainLooper()).post {
+            loadingGif.loadDataWithBaseURL("file:///android_asset/gifs/", yourData, "text/html", "utf-8", null)
+        }
     }
 }

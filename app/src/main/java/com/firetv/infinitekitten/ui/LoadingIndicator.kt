@@ -42,10 +42,15 @@ class LoadingIndicator(context: Context, attributeSet: AttributeSet) : View(cont
     private val radius = dpToPx(80)
     private val diameter = dpToPx(160)
 
+    private val pngList = context.assets.list("pngs")
+
     var startAngle = 0.0f
 
     init {
-        val pngList = context.assets.list("pngs")
+        init()
+    }
+
+    fun init() {
         selectedPng = pngList[Random().nextInt(pngList.size)]
 
         val bmp = BitmapFactory.decodeStream(context.assets.open("pngs/$selectedPng"))

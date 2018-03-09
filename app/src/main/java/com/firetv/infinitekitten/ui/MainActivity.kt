@@ -18,7 +18,11 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUI()
-        videosMeButton.hasFocus()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideLoading()
     }
 
     private fun setupUI() {
@@ -70,7 +74,6 @@ class MainActivity : FragmentActivity() {
                 val playlistManager = App.playlistManager
                 playlistManager.setParameters(result, 0)
                 startActivity(intent)
-                hideLoading()
             }
 
             override fun onFailure() {
