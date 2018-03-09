@@ -4,6 +4,8 @@ object ApiConstants {
     const val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/"
     const val YOUTUBE_API_KEY = "AIzaSyBxYoA67eoGShOtrd9yhzAFO1p_xhLdEgs"
 
+    const val YOUTUBE_BASE_URL = "https://www.youtube.com/watch/"
+
     const val FLICKR_API_URL = "https://api.flickr.com/services/rest/"
     const val FLICKR_API_KEY = "67ff8be480e8f7aeb0a12c691b624be0"
     const val FLICKR_HITS_PER_PAGE = 50

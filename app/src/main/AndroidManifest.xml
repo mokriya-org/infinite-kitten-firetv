@@ -32,6 +32,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.VideoPlayerActivity"></activity>
+
+        <service
+            android:name=".service.MediaService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>
