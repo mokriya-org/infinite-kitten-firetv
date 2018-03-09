@@ -3,6 +3,10 @@ package com.firetv.infinitekitten
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import android.util.SparseArray
+import at.huber.youtubeExtractor.VideoMeta
+import at.huber.youtubeExtractor.YouTubeExtractor
+import at.huber.youtubeExtractor.YtFile
 import com.firetv.infinitekitten.api.ApiConstants
 import com.firetv.infinitekitten.api.flickr.FlickrApiService
 import com.firetv.infinitekitten.api.flickr.model.PhotoSizesResponse
@@ -90,5 +94,16 @@ class App : Application() {
                 Log.d(Constants.TAG, "getPhotosSizes success")
             }
         })
+
+        val youtubeExtractor: YouTubeExtractor = object : YouTubeExtractor(this.applicationContext) {
+            override fun onExtractionComplete(ytFiles: SparseArray<YtFile>?, videoMeta: VideoMeta?) {
+                ytFiles?.let {
+                    val url = it.get(22)
+                    Log.d(Constants.TAG, "getVideoInfo failed")
+                }
+            }
+        }
+//        youtubeExtractor.extract("https://www.youtube.com/watch?v=AdtJggQORBI", true, true)
+        youtubeExtractor.extract("https://www.youtube.com/watch?v=Qgvip8ISSF0"	, true, true)
     }
 }
