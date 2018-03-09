@@ -48,8 +48,6 @@ class LoadingIndicator(context: Context, attributeSet: AttributeSet) : View(cont
         val pngList = context.assets.list("pngs")
         selectedPng = pngList[Random().nextInt(pngList.size)]
 
-        //selectedPng = randomPng.substringBefore(".")
-
         val bmp = BitmapFactory.decodeStream(context.assets.open("pngs/$selectedPng"))
         val palette = Palette.from(bmp).generate()
 

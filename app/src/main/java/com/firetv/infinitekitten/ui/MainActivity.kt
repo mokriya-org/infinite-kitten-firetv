@@ -75,7 +75,6 @@ class MainActivity : FragmentActivity() {
 
             override fun onFailure() {
                 hideLoading()
-                //TODO: Handle failure.
             }
         })
     }
