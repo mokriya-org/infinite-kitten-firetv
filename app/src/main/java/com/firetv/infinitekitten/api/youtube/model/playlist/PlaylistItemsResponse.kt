@@ -1,10 +1,10 @@
-package com.firetv.infinitekitten.api.model.search
+package com.firetv.infinitekitten.api.youtube.model.playlist
 
 /**
  * Created by diogobrito on 08/03/2018.
  */
-data class SearchList(
-        val items: List<SearchItem>,
+data class PlaylistItemsResponse(
+        val items: List<PlaylistItem>,
         val pageToken: String,
         val nextPageToken: String,
         val prevPageToken: String
