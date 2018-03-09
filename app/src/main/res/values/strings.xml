@@ -20,4 +20,6 @@
     <string name="video_error_unknown_error">Failed to load video</string>
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
+    <string name="videos_for_me">Videos for Me</string>
+    <string name="videos_for_humans">Videos for Humans</string>
 </resources>

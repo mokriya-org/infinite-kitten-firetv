@@ -9,6 +9,7 @@ buildscript {
         support_library_version = '26.1.0'
         kotlin_version = '1.2.10'
         play_services_version = '11.8.0'
+        constraint_layout_version = '1.0.2'
 
         //Alphabetical order
         glide_version = '3.8.0'
