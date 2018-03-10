@@ -1,4 +1,4 @@
-package com.firetv.infinitekitten.data
+package com.firetv.infinitekitten.model
 
 import com.devbrackets.android.playlistcore.api.PlaylistItem
 

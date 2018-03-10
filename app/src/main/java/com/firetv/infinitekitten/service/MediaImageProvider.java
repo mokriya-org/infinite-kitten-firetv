@@ -11,7 +11,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.devbrackets.android.playlistcore.components.image.ImageProvider;
 import com.firetv.infinitekitten.R;
-import com.firetv.infinitekitten.data.VideoPlaylistItem;
+import com.firetv.infinitekitten.model.VideoPlaylistItem;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -1,4 +1,4 @@
-package com.firetv.infinitekitten.ui
+package com.firetv.infinitekitten.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,9 @@ import android.view.animation.AnimationUtils
 import com.firetv.infinitekitten.App
 import com.firetv.infinitekitten.R
 import com.firetv.infinitekitten.api.ApiConstants
-import com.firetv.infinitekitten.data.VideoPlaylistItem
+import com.firetv.infinitekitten.model.VideoPlaylistItem
 import com.firetv.infinitekitten.playlist.YouTubeMediaItemFetcher
+import com.firetv.infinitekitten.ui.fragment.LoadingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : FragmentActivity() {

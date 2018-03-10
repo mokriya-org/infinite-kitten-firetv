@@ -19,7 +19,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.firetv.infinitekitten.ui.LoadingIndicator
+    <com.firetv.infinitekitten.ui.view.LoadingIndicatorView
         android:id="@+id/loadingIndicator"
         android:layout_width="@dimen/dimen_loading_indicator_side"
         android:layout_height="@dimen/dimen_loading_indicator_side"
