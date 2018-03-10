@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : FragmentActivity() {
 
+    private var isRunning = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -61,6 +63,16 @@ class MainActivity : FragmentActivity() {
         anim.fillAfter = true
     }
 
+    override fun onStart() {
+        super.onStart()
+        isRunning = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        isRunning = false
+    }
+
     private fun buildPlaylist(playlistId: String) {
         val youtubeMediaItemFetcher = YouTubeMediaItemFetcher(
                 context = App.context,
@@ -68,9 +80,12 @@ class MainActivity : FragmentActivity() {
         )
 
         val intent = Intent(this, VideoPlayerActivity::class.java)
-
         youtubeMediaItemFetcher.fetch(object : YouTubeMediaItemFetcher.YouTubeMediaItemFetcherCallback {
             override fun onSuccess(result: List<VideoPlaylistItem>, nextPageToken: String) {
+                if (!isRunning || isFinishing) {
+                    return
+                }
+
                 val playlistManager = App.playlistManager
                 playlistManager.setParameters(result, 0)
                 startActivity(intent)

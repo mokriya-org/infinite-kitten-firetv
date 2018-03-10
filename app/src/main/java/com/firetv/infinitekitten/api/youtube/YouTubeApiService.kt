@@ -17,7 +17,7 @@ interface YouTubeApiService {
     fun getPageForPlaylist(@Query("key") key: String = ApiConstants.YOUTUBE_API_KEY,
                            @Query("playlistId") playlistId: String,
                            @Query("part") part: String = "contentDetails",
-                           @Query("maxResults") maxResults: Int = 10,
+                           @Query("maxResults") maxResults: Int = 15,
                            @Query("pageToken") pageToken: String? = null): Call<PlaylistItemsResponse>
 
     @GET("search")
@@ -25,7 +25,7 @@ interface YouTubeApiService {
                          @Query("q") query: String,
                          @Query("topicId") topicId: String,
                          @Query("part") part: String = "snippet",
-                         @Query("maxResults") maxResults: Int = 10,
+                         @Query("maxResults") maxResults: Int = 15,
                          @Query("type") type: String = "video",
                          @Query("videoEmbeddable") videoEmbeddable: Boolean = true,
                          @Query("pageToken") pageToken: String? = null): Call<SearchResponse>

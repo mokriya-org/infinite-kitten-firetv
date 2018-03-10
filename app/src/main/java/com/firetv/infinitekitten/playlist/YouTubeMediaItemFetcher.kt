@@ -48,7 +48,6 @@ class YouTubeMediaItemFetcher(
         fun onSuccess(url: String)
     }
 
-
     fun fetch(callback: YouTubeMediaItemFetcherCallback) {
         fetchVideoMediaItemList(callback)
     }
