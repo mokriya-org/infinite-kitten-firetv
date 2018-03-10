@@ -8,7 +8,7 @@ import com.devbrackets.android.playlistcore.components.playlisthandler.DefaultPl
 import com.devbrackets.android.playlistcore.components.playlisthandler.PlaylistHandler;
 import com.devbrackets.android.playlistcore.service.BasePlaylistService;
 import com.firetv.infinitekitten.App;
-import com.firetv.infinitekitten.data.VideoPlaylistItem;
+import com.firetv.infinitekitten.model.VideoPlaylistItem;
 import com.firetv.infinitekitten.manager.PlaylistManager;
 
 /**

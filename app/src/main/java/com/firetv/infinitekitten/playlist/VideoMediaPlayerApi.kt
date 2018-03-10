@@ -9,7 +9,7 @@ import com.devbrackets.android.playlistcore.api.MediaPlayerApi
 import com.devbrackets.android.playlistcore.data.PlaybackState
 import com.devbrackets.android.playlistcore.listener.MediaStatusListener
 import com.devbrackets.android.playlistcore.listener.PlaylistListener
-import com.firetv.infinitekitten.data.VideoPlaylistItem
+import com.firetv.infinitekitten.model.VideoPlaylistItem
 
 /**
  * Created by diogobrito on 09/03/2018.

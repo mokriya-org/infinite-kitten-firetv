@@ -1,4 +1,4 @@
-package com.firetv.infinitekitten.ui
+package com.firetv.infinitekitten.ui.view
 
 import android.content.Context
 import android.content.res.Resources
@@ -14,7 +14,7 @@ import java.util.*
 /**
  * Created by dileepan on 09/03/18.
  */
-class LoadingIndicator(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
+class LoadingIndicatorView(context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
 
     private var selectedPng = ""
 

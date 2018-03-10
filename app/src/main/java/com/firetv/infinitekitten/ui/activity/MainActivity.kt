@@ -1,4 +1,4 @@
-package com.firetv.infinitekitten.ui
+package com.firetv.infinitekitten.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,14 @@ import android.view.animation.AnimationUtils
 import com.firetv.infinitekitten.App
 import com.firetv.infinitekitten.R
 import com.firetv.infinitekitten.api.ApiConstants
-import com.firetv.infinitekitten.data.VideoPlaylistItem
+import com.firetv.infinitekitten.model.VideoPlaylistItem
 import com.firetv.infinitekitten.playlist.YouTubeMediaItemFetcher
+import com.firetv.infinitekitten.ui.fragment.LoadingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : FragmentActivity() {
+
+    private var isRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,16 @@ class MainActivity : FragmentActivity() {
         anim.fillAfter = true
     }
 
+    override fun onStart() {
+        super.onStart()
+        isRunning = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        isRunning = false
+    }
+
     private fun buildPlaylist(playlistId: String) {
         val youtubeMediaItemFetcher = YouTubeMediaItemFetcher(
                 context = App.context,
@@ -68,9 +81,12 @@ class MainActivity : FragmentActivity() {
         )
 
         val intent = Intent(this, VideoPlayerActivity::class.java)
-
         youtubeMediaItemFetcher.fetch(object : YouTubeMediaItemFetcher.YouTubeMediaItemFetcherCallback {
             override fun onSuccess(result: List<VideoPlaylistItem>, nextPageToken: String) {
+                if (!isRunning || isFinishing) {
+                    return
+                }
+
                 val playlistManager = App.playlistManager
                 playlistManager.setParameters(result, 0)
                 startActivity(intent)

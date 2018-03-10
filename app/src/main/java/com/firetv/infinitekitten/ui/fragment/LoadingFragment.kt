@@ -1,4 +1,4 @@
-package com.firetv.infinitekitten.ui
+package com.firetv.infinitekitten.ui.fragment
 
 import android.graphics.Color
 import android.os.Bundle
@@ -12,6 +12,7 @@ import android.view.animation.Animation
 import com.bumptech.glide.Glide
 import com.firetv.infinitekitten.R
 import com.firetv.infinitekitten.api.flickr.Flickr
+import com.firetv.infinitekitten.ui.animation.LoadingIndicatorAnimation
 import kotlinx.android.synthetic.main.fragment_loading.*
 
 /**
