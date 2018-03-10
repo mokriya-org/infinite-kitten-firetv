@@ -14,6 +14,7 @@
     <Button
         android:id="@+id/videosMeButton"
         style="@style/AppTheme.IKButton"
+        android:focusedByDefault="true"
         android:layout_width="@dimen/dimen_button_width"
         android:layout_height="@dimen/dimen_button_height"
         android:drawableStart="@drawable/ic_laughing_kitty"
