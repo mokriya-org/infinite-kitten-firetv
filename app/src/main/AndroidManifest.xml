@@ -37,6 +37,11 @@
             android:name=".service.MediaService"
             android:enabled="true"
             android:exported="false" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="00ad56942fd0cbd9c8f9cdc32f01d90d29269231"
+            />
     </application>
 
 </manifest>
