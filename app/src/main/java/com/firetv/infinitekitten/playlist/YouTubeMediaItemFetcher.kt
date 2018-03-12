@@ -9,6 +9,7 @@ import at.huber.youtubeExtractor.YtFile
 import com.firetv.infinitekitten.api.youtube.YouTubeApiService
 import com.firetv.infinitekitten.api.youtube.model.playlist.PlaylistItemsResponse
 import com.firetv.infinitekitten.api.youtube.model.video.VideosResponse
+import com.firetv.infinitekitten.manager.VideoLogManager
 import com.firetv.infinitekitten.model.VideoPlaylistItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +23,7 @@ import retrofit2.Response
 class YouTubeMediaItemFetcher(
         private val context: Context,
         private val playlistId: String,
-        private val pageToken: String? = null) {
+        private var pageToken: String? = null) {
 
     companion object {
         val youTubeApiService by lazy {
@@ -52,7 +53,7 @@ class YouTubeMediaItemFetcher(
         fetchVideoMediaItemList(callback)
     }
 
-    private fun fetchVideoMediaItemList(callback: YouTubeMediaItemFetcherCallback) {
+    private fun fetchVideoMediaItemList(callback: YouTubeMediaItemFetcherCallback, videoIds: ArrayList<String> = ArrayList()) {
         youTubeApiService
                 .getPageForPlaylist(playlistId = playlistId, pageToken = pageToken)
                 .enqueue(object : Callback<PlaylistItemsResponse> {
@@ -67,13 +68,18 @@ class YouTubeMediaItemFetcher(
                         }
 
                         response.body()?.let { playlistItemsResponse ->
-                            val videoIds = playlistItemsResponse.items.map { it.contentDetails.videoId }
+                            val fetchedIds = playlistItemsResponse.items.map { it.contentDetails.videoId }.filter { !VideoLogManager.videoLogList.contains(it) }
                             val nextPageToken = playlistItemsResponse.nextPageToken
 
                             var returnedCallbacks = 0
-                            var youtubeMediaItems = mutableListOf<VideoPlaylistItem>()
+                            val youtubeMediaItems = mutableListOf<VideoPlaylistItem>()
 
-                            videoIds.forEach {
+                            videoIds.addAll(fetchedIds)
+
+                            if (videoIds.size < 8) {
+                                pageToken = nextPageToken
+                                fetchVideoMediaItemList(callback, videoIds)
+                            } else videoIds.forEach {
                                 fetchVideoMediaItem(it, object : YouTubeMediaItemCallback {
                                     override fun onFailure() {
                                         if (++returnedCallbacks < videoIds.size) {
