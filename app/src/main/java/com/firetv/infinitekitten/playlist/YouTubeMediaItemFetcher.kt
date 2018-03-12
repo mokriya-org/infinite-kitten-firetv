@@ -6,6 +6,7 @@ import android.util.SparseArray
 import at.huber.youtubeExtractor.VideoMeta
 import at.huber.youtubeExtractor.YouTubeExtractor
 import at.huber.youtubeExtractor.YtFile
+import com.firetv.infinitekitten.api.ApiConstants
 import com.firetv.infinitekitten.api.youtube.YouTubeApiService
 import com.firetv.infinitekitten.api.youtube.model.playlist.PlaylistItemsResponse
 import com.firetv.infinitekitten.api.youtube.model.video.VideosResponse
@@ -76,7 +77,7 @@ class YouTubeMediaItemFetcher(
 
                             videoIds.addAll(fetchedIds)
 
-                            if (videoIds.size < 8) {
+                            if (videoIds.size <= ApiConstants.YOUTUBE_RESULTS_PER_PAGE / 2) {
                                 pageToken = nextPageToken
                                 fetchVideoMediaItemList(callback, videoIds)
                             } else videoIds.forEach {
