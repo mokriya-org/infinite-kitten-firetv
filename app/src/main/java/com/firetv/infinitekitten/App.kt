@@ -20,7 +20,10 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        Fabric.with(instance, Crashlytics())
+
+        if (!BuildConfig.DEBUG) {
+            Fabric.with(instance, Crashlytics())
+        }
 
         playlistManager = PlaylistManager(instance)
         Flickr.initUrls()
