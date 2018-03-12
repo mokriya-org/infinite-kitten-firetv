@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion rootProject.ext.compile_sdk_version
@@ -23,6 +22,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:leanback-v17:$support_library_version"
     implementation "com.android.support:appcompat-v7:$support_library_version"
@@ -42,4 +43,14 @@ dependencies {
     //ExoMedia
     implementation "com.devbrackets.android:exomedia:$exomedia_version"
     implementation "com.devbrackets.android:playlistcore:$playlistcore_version"
+
+    //Crashlytics
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar") {
+        transitive = true
+    }
+}
+
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
 }
