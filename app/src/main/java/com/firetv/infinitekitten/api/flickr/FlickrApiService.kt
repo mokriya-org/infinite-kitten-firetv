@@ -9,11 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.security.cert.CertificateException
-import java.security.cert.X509Certificate
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSession
 
 
 interface FlickrApiService {
@@ -26,7 +23,7 @@ interface FlickrApiService {
                   @Query("content_type") contentType: Int = 1,
                   @Query("text") query: String,
                   @Query("tags") tags: String = "cat,cats,kitten,kittens",
-                  @Query("per_page") hitsPerPage: Int = ApiConstants.FLICKR_HITS_PER_PAGE,
+                  @Query("per_page") hitsPerPage: Int = ApiConstants.FLICKR_RESULTS_PER_PAGE,
                   @Query("page") page: Int,
                   @Query("is_public") isPublic: Int = 1,
                   @Query("format") format: String = "json",
@@ -44,55 +41,21 @@ interface FlickrApiService {
      */
     companion object {
 
-        private fun getUnsafeOkHttpClient(): OkHttpClient {
-            try {
-                // Create a trust manager that does not validate certificate chains
-                val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                    override fun getAcceptedIssuers(): Array<X509Certificate> {
-                        return arrayOf()
-                    }
-
-                    @Throws(CertificateException::class)
-                    override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
-                    }
-
-                    @Throws(CertificateException::class)
-                    override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
-                    }
-                })
-
-
-                // Install the all-trusting trust manager
-                val sslContext = SSLContext.getInstance("SSL")
-                sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-                // Create an ssl socket factory with our all-trusting manager
-
-
-                val builder = OkHttpClient.Builder().sslSocketFactory(sslContext.socketFactory)
-                builder.hostnameVerifier { hostname, session -> true }
-
-                return builder.build()
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
-
-        }
-
         fun create(): FlickrApiService {
-            /*  val hostnameVerifier = HostnameVerifier(object : (String, SSLSession) -> Boolean {
-                  override fun invoke(hostname: String, session: SSLSession): Boolean {
-                      return hostname.equals("api.flickr.com")
-                  }
-              })
+            val hostnameVerifier = HostnameVerifier(object : (String, SSLSession) -> Boolean {
+                override fun invoke(hostname: String, session: SSLSession): Boolean {
+                    return hostname == ApiConstants.FLICKR_API_DOMAIN
+                }
+            })
 
-              val httpClient = OkHttpClient.Builder()
-                      .hostnameVerifier(hostnameVerifier)
-                      .build()*/
+            val httpClient = OkHttpClient.Builder()
+                    .hostnameVerifier(hostnameVerifier)
+                    .build()
 
             val retrofit = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(ApiConstants.FLICKR_API_URL)
-                    .client(getUnsafeOkHttpClient())
+                    .client(httpClient)
                     .build()
 
             return retrofit.create(FlickrApiService::class.java)
