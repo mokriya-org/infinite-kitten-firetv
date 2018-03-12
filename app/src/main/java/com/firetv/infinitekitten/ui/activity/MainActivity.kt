@@ -11,8 +11,7 @@ import com.firetv.infinitekitten.api.ApiConstants
 import com.firetv.infinitekitten.model.VideoPlaylistItem
 import com.firetv.infinitekitten.playlist.YouTubeMediaItemFetcher
 import com.firetv.infinitekitten.ui.fragment.LoadingFragment
-import com.firetv.infinitekitten.utils.Segment
-import com.segment.analytics.Analytics
+import com.firetv.infinitekitten.utils.EventTrackerUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : FragmentActivity() {
@@ -56,12 +55,12 @@ class MainActivity : FragmentActivity() {
         }
 
         videosMeButton.setOnClickListener {
-            Analytics.with(applicationContext).track(Segment.CAT_VIDEOS_BUTTON_SELECTED)
+            EventTrackerUtil.trackEvent(EventTrackerUtil.EVENT_CAT_VIDEOS_BUTTON_SELECTED)
             showPlaylist(ApiConstants.CAT_PLAYLIST)
         }
 
         videosHumanButton.setOnClickListener {
-            Analytics.with(applicationContext).track(Segment.HUMAN_VIDEOS_BUTTON_SELECTED)
+            EventTrackerUtil.trackEvent(EventTrackerUtil.EVENT_HUMAN_VIDEOS_BUTTON_SELECTED)
             showPlaylist(ApiConstants.HUMAN_PLAYLIST)
         }
     }

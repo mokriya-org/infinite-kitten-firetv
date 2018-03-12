@@ -12,6 +12,4 @@ object ApiConstants {
 
     const val CAT_PLAYLIST = "PLxSTZt7tfw9-voNrcR6SZ-kP4rurxXhmI"
     const val HUMAN_PLAYLIST = "PLxSTZt7tfw9_zrtS9W73pLon1tFv83y3b"
-
-    const val SEGMENT_API_KEY = "skrVmaWaEVpb5abNZYyPwhxIBVOdcIUc"
 }
