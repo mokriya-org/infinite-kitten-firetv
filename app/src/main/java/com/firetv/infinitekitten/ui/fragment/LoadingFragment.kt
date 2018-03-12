@@ -32,7 +32,7 @@ class LoadingFragment : Fragment() {
 
     fun setupUI() {
         val bgImageUrl = Flickr.getFlickPhotoUrl()
-        if (bgImageUrl != null) Glide.with(context).load(bgImageUrl).into(background)
+        if (bgImageUrl != null) Glide.with(context).load(bgImageUrl).dontAnimate().into(background)
 
         loadingIndicator.startAnimation(LoadingIndicatorAnimation(loadingIndicator).apply {
             duration = 500
@@ -41,7 +41,7 @@ class LoadingFragment : Fragment() {
 
         loadingIndicator.init()
         val gifName = loadingIndicator.getSelectedGif()
-        val yourData = "<html style=\"margin: 0;\">\n" +
+        val stylizedGif = "<html style=\"margin: 0;\">\n" +
                 "    <body style=\"margin: 0;\">\n" +
                 "    <img src=" + gifName + " style=\"width: 100%; height: 100%\" />\n" +
                 "    </body>\n" +
@@ -50,7 +50,7 @@ class LoadingFragment : Fragment() {
         loadingGif.setBackgroundColor(Color.TRANSPARENT)
         loadingGif.settings.allowFileAccess = true
         Handler(Looper.getMainLooper()).post {
-            loadingGif.loadDataWithBaseURL("file:///android_asset/gifs/", yourData, "text/html", "utf-8", null)
+            loadingGif.loadDataWithBaseURL("file:///android_asset/gifs/", stylizedGif, "text/html", "utf-8", null)
         }
     }
 }
