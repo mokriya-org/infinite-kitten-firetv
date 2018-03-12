@@ -2,6 +2,7 @@
 
 buildscript {
     ext {
+        //Android
         min_sdk_version = 22
         target_sdk_version = 26
         compile_sdk_version = 26
@@ -12,16 +13,16 @@ buildscript {
         constraint_layout_version = '1.0.2'
         android_tools_version = '3.0.1'
 
-        //Alphabetical order
+        //External Dependencies
         crashlytics_version = '2.9.1'
+        exomedia_version = '4.1.0'
         fabric_version = '1.+'
         glide_version = '3.8.0'
-        retrofit_version = '2.3.0'
-
-        exomedia_version = '4.1.0'
         playlistcore_version = '2.0.0'
-
+        retrofit_version = '2.3.0'
+        segment_version = '4.+'
     }
+
     repositories {
         google()
         jcenter()

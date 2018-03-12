@@ -30,7 +30,6 @@ class VideoPlayerActivity : FragmentActivity(), VideoControlsSeekListener {
         setupPlayer()
     }
 
-
     override fun onStop() {
         super.onStop()
         playlistManager.removeVideoMediaPlayerApi(videoMediaPlayerApi)

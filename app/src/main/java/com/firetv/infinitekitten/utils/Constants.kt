@@ -5,3 +5,4 @@ class Constants {
         const val TAG = "InfiniteKitten"
     }
 }
+

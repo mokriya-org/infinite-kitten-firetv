@@ -10,6 +10,8 @@ import com.devbrackets.android.playlistcore.data.PlaybackState
 import com.devbrackets.android.playlistcore.listener.MediaStatusListener
 import com.devbrackets.android.playlistcore.listener.PlaylistListener
 import com.firetv.infinitekitten.model.VideoPlaylistItem
+import com.firetv.infinitekitten.utils.EventTrackerUtil
+import com.segment.analytics.Properties
 
 /**
  * Created by diogobrito on 09/03/2018.
@@ -89,14 +91,16 @@ class VideoMediaPlayerApi(var videoView: VideoView) :
     override fun onPlaylistItemChanged(currentItem: VideoPlaylistItem?, hasNext: Boolean, hasPrevious: Boolean): Boolean {
         val videoControls = videoView.videoControls
 
-        if (videoControls != null && currentItem != null) {
+        currentItem?.let { item ->
             // Updates the VideoControls display text
-            videoControls.setTitle(currentItem!!.title)
-            videoControls.setDescription(currentItem!!.youtubeDescription)
+            videoControls?.setTitle(item.title)
+            videoControls?.setDescription(item.youtubeDescription)
 
             // Updates the VideoControls button visibilities
-            videoControls.setPreviousButtonEnabled(hasPrevious)
-            videoControls.setNextButtonEnabled(hasNext)
+            videoControls?.setPreviousButtonEnabled(hasPrevious)
+            videoControls?.setNextButtonEnabled(hasNext)
+
+            EventTrackerUtil.trackEvent(EventTrackerUtil.EVENT_WATCHING_VIDEO, Properties().putValue(EventTrackerUtil.EVENT_VIDEO_ID, item.youtubeId))
         }
 
         return false

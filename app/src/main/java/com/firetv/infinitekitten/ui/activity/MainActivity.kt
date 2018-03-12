@@ -11,12 +11,14 @@ import com.firetv.infinitekitten.api.ApiConstants
 import com.firetv.infinitekitten.model.VideoPlaylistItem
 import com.firetv.infinitekitten.playlist.YouTubeMediaItemFetcher
 import com.firetv.infinitekitten.ui.fragment.LoadingFragment
+import com.firetv.infinitekitten.utils.EventTrackerUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : FragmentActivity() {
 
     private var playVideosOnLoad = false
 
+    //region FragmentActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,6 +30,21 @@ class MainActivity : FragmentActivity() {
         hideLoading()
     }
 
+    override fun onStop() {
+        super.onStop()
+        playVideosOnLoad = false
+    }
+
+    override fun onBackPressed() {
+        if (container.visibility == View.VISIBLE) {
+            hideLoading()
+        } else {
+            super.onBackPressed()
+        }
+    }
+    //endregion
+
+    //region Private
     private fun setupUI() {
         videosMeButton.setOnFocusChangeListener { v, hasFocus ->
             onFocusChangeListener(v, hasFocus)
@@ -38,14 +55,26 @@ class MainActivity : FragmentActivity() {
         }
 
         videosMeButton.setOnClickListener {
-            showLoading()
-            buildPlaylist(ApiConstants.CAT_PLAYLIST)
+            EventTrackerUtil.trackEvent(EventTrackerUtil.EVENT_CAT_VIDEOS_BUTTON_SELECTED)
+            showPlaylist(ApiConstants.CAT_PLAYLIST)
         }
 
         videosHumanButton.setOnClickListener {
-            showLoading()
-            buildPlaylist(ApiConstants.HUMAN_PLAYLIST)
+            EventTrackerUtil.trackEvent(EventTrackerUtil.EVENT_HUMAN_VIDEOS_BUTTON_SELECTED)
+            showPlaylist(ApiConstants.HUMAN_PLAYLIST)
         }
+    }
+
+    private fun showPlaylist(playlistId: String) {
+        showLoading()
+        buildPlaylist(playlistId)
+    }
+
+    private fun onFocusChangeListener(v: View, hasFocus: Boolean) {
+        val anim = AnimationUtils.loadAnimation(this,
+                if (hasFocus) R.anim.scale_in else R.anim.scale_out)
+        v.startAnimation(anim)
+        anim.fillAfter = true
     }
 
     private fun showLoading() {
@@ -59,17 +88,6 @@ class MainActivity : FragmentActivity() {
         container.visibility = View.GONE
     }
 
-    private fun onFocusChangeListener(v: View, hasFocus: Boolean) {
-        val anim = AnimationUtils.loadAnimation(this,
-                if (hasFocus) R.anim.scale_in else R.anim.scale_out)
-        v.startAnimation(anim)
-        anim.fillAfter = true
-    }
-
-    override fun onStop() {
-        super.onStop()
-        playVideosOnLoad = false
-    }
 
     private fun buildPlaylist(playlistId: String) {
         val youtubeMediaItemFetcher = YouTubeMediaItemFetcher(
@@ -96,12 +114,5 @@ class MainActivity : FragmentActivity() {
             }
         })
     }
-
-    override fun onBackPressed() {
-        if (container.visibility == View.VISIBLE) {
-            hideLoading()
-        } else {
-            super.onBackPressed()
-        }
-    }
+    //endregion
 }
