@@ -9,6 +9,7 @@ import com.devbrackets.android.playlistcore.api.MediaPlayerApi
 import com.devbrackets.android.playlistcore.data.PlaybackState
 import com.devbrackets.android.playlistcore.listener.MediaStatusListener
 import com.devbrackets.android.playlistcore.listener.PlaylistListener
+import com.firetv.infinitekitten.manager.VideoLogManager
 import com.firetv.infinitekitten.model.VideoPlaylistItem
 import com.firetv.infinitekitten.utils.EventTrackerUtil
 import com.segment.analytics.Properties
@@ -16,7 +17,7 @@ import com.segment.analytics.Properties
 /**
  * Created by diogobrito on 09/03/2018.
  */
-class VideoMediaPlayerApi(var videoView: VideoView) :
+class VideoMediaPlayerApi(var videoView: VideoView, val playlistId: String) :
         MediaPlayerApi<VideoPlaylistItem>,
         PlaylistListener<VideoPlaylistItem>,
         OnPreparedListener,
@@ -99,6 +100,9 @@ class VideoMediaPlayerApi(var videoView: VideoView) :
             // Updates the VideoControls button visibilities
             videoControls?.setPreviousButtonEnabled(hasPrevious)
             videoControls?.setNextButtonEnabled(hasNext)
+
+            //Add videoId to VideoLog
+            VideoLogManager.addVideoId(item.youtubeId, playlistId)
 
             EventTrackerUtil.trackEvent(EventTrackerUtil.EVENT_WATCHING_VIDEO, Properties().putValue(EventTrackerUtil.EVENT_VIDEO_ID, item.youtubeId))
         }
