@@ -10,8 +10,11 @@ buildscript {
         kotlin_version = '1.2.10'
         play_services_version = '11.8.0'
         constraint_layout_version = '1.0.2'
+        android_tools_version = '3.0.1'
 
         //Alphabetical order
+        crashlytics_version = '2.9.1'
+        fabric_version = '1.+'
         glide_version = '3.8.0'
         retrofit_version = '2.3.0'
 
@@ -22,13 +25,12 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "com.android.tools.build:gradle:$android_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "io.fabric.tools:gradle:$fabric_version"
     }
 }
 
@@ -37,6 +39,7 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
+        maven { url 'https://maven.fabric.io/public' }
     }
 }
 

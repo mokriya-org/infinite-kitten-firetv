@@ -31,17 +31,15 @@ object Flickr {
             override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
                 Log.d(Constants.TAG, "getPhotos success")
                 val photoList = response?.body()?.photos?.photo ?: return
-                for (photo in photoList) {
+
+                photoList.forEach { photo ->
                     flickrApiService.getPhotosSizes(photoId = photo.id).enqueue(object : Callback<PhotoSizesResponse> {
                         override fun onResponse(call: Call<PhotoSizesResponse>?, response: Response<PhotoSizesResponse>?) {
-                            val sizes = response?.body()?.sizes?.size ?: return
-                            for (size in sizes) {
-                                if (isGoodResolution(size.width.toDouble(), size.height.toDouble())) {
-                                    urlList.add(size.source)
-                                    Glide.with(App.context).load(size.source).diskCacheStrategy(DiskCacheStrategy.ALL).preload()
-                                    break
-                                }
-                            }
+                            val goodResolutionPhotoSize = response?.body()?.sizes?.size?.firstOrNull { isGoodResolution(it.width.toDouble(), it.height.toDouble()) }
+                                    ?: return
+
+                            urlList.add(goodResolutionPhotoSize.source)
+                            Glide.with(App.context).load(goodResolutionPhotoSize.source).diskCacheStrategy(DiskCacheStrategy.ALL).preload()
                         }
 
                         override fun onFailure(call: Call<PhotoSizesResponse>?, t: Throwable?) {
@@ -49,9 +47,7 @@ object Flickr {
                         }
                     })
                 }
-
             }
-
         })
     }
 
