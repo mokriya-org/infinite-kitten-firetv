@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : FragmentActivity() {
 
-    private var isRunning = false
+    private var playVideosOnLoad = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +49,13 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun showLoading() {
+        playVideosOnLoad = true
         container.visibility = View.VISIBLE
         (supportFragmentManager.findFragmentById(R.id.loadingFragment) as LoadingFragment).setupUI()
     }
 
     private fun hideLoading() {
+        playVideosOnLoad = false
         container.visibility = View.GONE
     }
 
@@ -64,14 +66,9 @@ class MainActivity : FragmentActivity() {
         anim.fillAfter = true
     }
 
-    override fun onStart() {
-        super.onStart()
-        isRunning = true
-    }
-
     override fun onStop() {
         super.onStop()
-        isRunning = false
+        playVideosOnLoad = false
     }
 
     private fun buildPlaylist(playlistId: String) {
@@ -83,7 +80,7 @@ class MainActivity : FragmentActivity() {
         val intent = Intent(this, VideoPlayerActivity::class.java)
         youtubeMediaItemFetcher.fetch(object : YouTubeMediaItemFetcher.YouTubeMediaItemFetcherCallback {
             override fun onSuccess(result: List<VideoPlaylistItem>, nextPageToken: String) {
-                if (!isRunning || isFinishing) {
+                if (!playVideosOnLoad || isFinishing) {
                     return
                 }
 
@@ -96,5 +93,13 @@ class MainActivity : FragmentActivity() {
                 hideLoading()
             }
         })
+    }
+
+    override fun onBackPressed() {
+        if (container.visibility == View.VISIBLE) {
+            hideLoading()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
