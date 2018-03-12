@@ -29,11 +29,16 @@ class VideoMediaPlayerApi(var videoView: VideoView) :
     private var bufferPercent: Int = 0
     private var mediaStatusListener: MediaStatusListener<VideoPlaylistItem>? = null
 
-    override val isPlaying = videoView.isPlaying
-    override val handlesOwnAudioFocus = false
-    override val currentPosition: Long = if (prepared) videoView.currentPosition else 0
-    override val duration: Long = if (prepared) videoView.duration else 0
-    override val bufferedPercent: Int = bufferPercent
+    override val isPlaying: Boolean
+        get() = videoView.isPlaying
+    override val bufferedPercent: Int
+        get() = bufferPercent
+    override val currentPosition: Long
+        get() = if (prepared) videoView.currentPosition else 0
+    override val duration: Long
+        get() = if (prepared) videoView.duration else 0
+    override val handlesOwnAudioFocus: Boolean
+        get() = false
 
     init {
         videoView.setOnErrorListener(this)
