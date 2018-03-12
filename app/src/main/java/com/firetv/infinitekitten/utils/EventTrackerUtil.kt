@@ -13,7 +13,9 @@ class EventTrackerUtil {
         const val EVENT_CAT_VIDEOS_BUTTON_SELECTED = "Selected Cat Videos"
         const val EVENT_HUMAN_VIDEOS_BUTTON_SELECTED = "Selected Human Videos"
 
-        const val EVENT_VIDEO_WATCHED = "Finished Watching Video"
+        const val EVENT_WATCHING_VIDEO = "Watching Video"
+
+        const val EVENT_VIDEO_ID = "video_id"
 
         fun setupTracker() {
             Analytics.setSingletonInstance(
@@ -31,5 +33,6 @@ class EventTrackerUtil {
                 Analytics.with(App.context).track(eventName, properties)
             }
         }
+
     }
 }
