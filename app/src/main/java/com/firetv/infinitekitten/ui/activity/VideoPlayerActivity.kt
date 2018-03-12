@@ -20,8 +20,8 @@ class VideoPlayerActivity : FragmentActivity(), VideoControlsSeekListener {
 
     private lateinit var videoMediaPlayerApi: VideoMediaPlayerApi
     private val playlistManager: PlaylistManager = App.playlistManager
-    var nextPlayList: List<VideoPlaylistItem> = mutableListOf()
-    var playNextPlayList: Boolean = false
+    private var nextPlayList: List<VideoPlaylistItem> = mutableListOf()
+    private var playNextPlayList: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
