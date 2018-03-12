@@ -105,6 +105,8 @@ class MainActivity : FragmentActivity() {
 
                 val playlistManager = App.playlistManager
                 playlistManager.setParameters(result, 0)
+                playlistManager.playlistId = playlistId
+                playlistManager.nextPageToken = nextPageToken
                 startActivity(intent)
             }
 
