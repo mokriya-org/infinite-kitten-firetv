@@ -32,7 +32,7 @@ class LoadingFragment : Fragment() {
 
     fun setupUI() {
         val bgImageUrl = Flickr.getFlickPhotoUrl()
-        if (bgImageUrl != null) Glide.with(context).load(bgImageUrl).into(background)
+        if (bgImageUrl != null) Glide.with(context).load(bgImageUrl).dontAnimate().into(background)
 
         loadingIndicator.startAnimation(LoadingIndicatorAnimation(loadingIndicator).apply {
             duration = 500
