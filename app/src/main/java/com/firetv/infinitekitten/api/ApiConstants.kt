@@ -3,7 +3,7 @@ package com.firetv.infinitekitten.api
 object ApiConstants {
     const val YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/"
     const val YOUTUBE_API_KEY = "AIzaSyBxYoA67eoGShOtrd9yhzAFO1p_xhLdEgs"
-    const val YOUTUBE_RESULTS_PER_PAGE = 20
+    const val YOUTUBE_RESULTS_PER_PAGE = 15
 
     const val FLICKR_API_DOMAIN = "api.flickr.com"
     const val FLICKR_API_URL = "https://$FLICKR_API_DOMAIN/services/rest/"
