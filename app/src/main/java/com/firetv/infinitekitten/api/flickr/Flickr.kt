@@ -2,6 +2,7 @@ package com.firetv.infinitekitten.api.flickr
 
 import android.util.Log
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.firetv.infinitekitten.App
 import com.firetv.infinitekitten.api.flickr.model.PhotoSizesResponse
 import com.firetv.infinitekitten.api.flickr.model.SearchResponse
@@ -37,7 +38,7 @@ object Flickr {
                             for (size in sizes) {
                                 if (isGoodResolution(size.width.toDouble(), size.height.toDouble())) {
                                     urlList.add(size.source)
-                                    Glide.with(App.context).load(size.source).preload()
+                                    Glide.with(App.context).load(size.source).diskCacheStrategy(DiskCacheStrategy.ALL).preload()
                                     break
                                 }
                             }
