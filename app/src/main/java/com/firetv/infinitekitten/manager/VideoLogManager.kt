@@ -27,5 +27,5 @@ object VideoLogManager {
         addAll(prefs.getString(keyForPlaylistId(playlistId), "").split(","))
     }
 
-    private fun keyForPlaylistId(playlistId: String) = "key$playlistId"
+    private fun keyForPlaylistId(playlistId: String) = "watched_${playlistId}_videos"
 }
