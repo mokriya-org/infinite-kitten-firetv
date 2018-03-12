@@ -69,8 +69,10 @@ class YouTubeMediaItemFetcher(
                         }
 
                         response.body()?.let { playlistItemsResponse ->
-                            val fetchedIds = playlistItemsResponse.items.map { it.contentDetails.videoId }.filter { !VideoLogManager.videoLogList.contains(it) }
+                            val fetchedIds = playlistItemsResponse.items.map { it.contentDetails.videoId }.filter { !VideoLogManager.isSeen(it, playlistId) }
                             val nextPageToken = playlistItemsResponse.nextPageToken
+
+                            if (nextPageToken == null) VideoLogManager.clearLog(playlistId)
 
                             var returnedCallbacks = 0
                             val youtubeMediaItems = mutableListOf<VideoPlaylistItem>()

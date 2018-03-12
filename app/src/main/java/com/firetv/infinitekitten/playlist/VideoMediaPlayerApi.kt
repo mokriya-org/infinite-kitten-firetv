@@ -17,7 +17,7 @@ import com.segment.analytics.Properties
 /**
  * Created by diogobrito on 09/03/2018.
  */
-class VideoMediaPlayerApi(var videoView: VideoView) :
+class VideoMediaPlayerApi(var videoView: VideoView, val playlistId: String) :
         MediaPlayerApi<VideoPlaylistItem>,
         PlaylistListener<VideoPlaylistItem>,
         OnPreparedListener,
@@ -102,7 +102,7 @@ class VideoMediaPlayerApi(var videoView: VideoView) :
             videoControls?.setNextButtonEnabled(hasNext)
 
             //Add videoId to VideoLog
-            VideoLogManager.addVideoId(item.youtubeId)
+            VideoLogManager.addVideoId(item.youtubeId, playlistId)
 
             EventTrackerUtil.trackEvent(EventTrackerUtil.EVENT_WATCHING_VIDEO, Properties().putValue(EventTrackerUtil.EVENT_VIDEO_ID, item.youtubeId))
         }

@@ -56,7 +56,7 @@ class VideoPlayerActivity : FragmentActivity(), VideoControlsSeekListener {
         videoView.setHandleAudioFocus(false)
         videoView.videoControls?.setSeekListener(this)
 
-        videoMediaPlayerApi = VideoMediaPlayerApi(videoView)
+        videoMediaPlayerApi = VideoMediaPlayerApi(videoView, playlistManager.playlistId)
         videoView.setOnCompletionListener {
             if(playNextPlayList){
                 playNextPlaylist()
