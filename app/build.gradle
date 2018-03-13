@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion rootProject.ext.compile_sdk_version
     defaultConfig {
         applicationId "com.firetv.infinitekitten"
-        minSdkVersion 21
-        targetSdkVersion 26
+        minSdkVersion rootProject.ext.min_sdk_version
+        targetSdkVersion rootProject.ext.target_sdk_version
         versionCode 1
         versionName "1.0"
     }
@@ -23,8 +22,39 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:leanback-v17:26.1.0'
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.github.bumptech.glide:glide:3.8.0'
+
+    //Android
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:leanback-v17:$support_library_version"
+    implementation "com.android.support:appcompat-v7:$support_library_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation "com.android.support:palette-v7:$support_library_version"
+
+    //Crashlytics
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar") {
+        transitive = true
+    }
+
+    //ExoMedia
+    implementation "com.devbrackets.android:exomedia:$exomedia_version"
+    implementation "com.devbrackets.android:playlistcore:$playlistcore_version"
+
+    //Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //Segment
+    implementation "com.segment.analytics.android:analytics:$segment_version"
+
+    //YouTubeExtractor
+    implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
+
+}
+
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
 }
