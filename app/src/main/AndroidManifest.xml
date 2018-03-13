@@ -31,7 +31,9 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.VideoPlayerActivity"></activity>
+        <activity
+            android:name=".ui.activity.VideoPlayerActivity"
+            android:screenOrientation="landscape" />
 
         <service
             android:name=".service.MediaService"
@@ -40,8 +42,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="00ad56942fd0cbd9c8f9cdc32f01d90d29269231"
-            />
+            android:value="00ad56942fd0cbd9c8f9cdc32f01d90d29269231" />
     </application>
 
 </manifest>
