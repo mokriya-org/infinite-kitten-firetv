@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Infinite Kitten FireTV</string>
-
+    <string name="app_name">Infinite Kitten</string>
+  
     <string name="videos_for_me">Videos for Me</string>
     <string name="videos_for_humans">Videos for Humans</string>
 </resources>

@@ -43,18 +43,17 @@ public class MediaImageProvider implements ImageProvider<VideoPlaylistItem> {
     public MediaImageProvider(@NonNull Context context, @NonNull OnImageUpdatedListener listener) {
         glide = Glide.with(context.getApplicationContext());
         this.listener = listener;
-
-        defaultNotificationImage = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+        defaultNotificationImage = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_status_bar);
     }
 
     @Override
     public int getNotificationIconRes() {
-        return R.mipmap.ic_launcher;
+        return R.mipmap.ic_status_bar;
     }
 
     @Override
     public int getRemoteViewIconRes() {
-        return R.mipmap.ic_launcher;
+        return R.mipmap.ic_status_bar;
     }
 
     @Nullable
