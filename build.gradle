@@ -2,36 +2,40 @@
 
 buildscript {
     ext {
-        //Android
-        min_sdk_version = 22
-        target_sdk_version = 26
-        compile_sdk_version = 26
-        build_tools_version = '26.1.0'
-        support_library_version = '27.0.2'
-        kotlin_version = '1.2.10'
-        play_services_version = '11.8.0'
+        androidx_constraint_layout = '2.0.0'
+        androidx_core = '1.1.0'
+        android_tools_version = '4.1.1'
+        android_annotations = '28.0.0'
+        build_tools_version = '29.0.3'
         constraint_layout_version = '1.0.2'
-        android_tools_version = '3.0.1'
+        exomedia_version = '4.3.0'
+        firebase_bom = '26.2.0'
+        firebase = '2.4.1'
 
-        //External Dependencies
-        crashlytics_version = '2.9.1'
-        exomedia_version = '4.1.0'
-        fabric_version = '1.+'
-        glide_version = '3.8.0'
+        google_services = '4.3.4'
+        glide = '4.11.0'
+
+        okhttp = '4.8.1'
+
+        support_library_version = '28.0.0'
+        segment = '4.+'
+
         playlistcore_version = '2.0.0'
-        retrofit_version = '2.3.0'
-        segment_version = '4.+'
+        retrofit = '2.9.0'
     }
+
+    ext.kotlin_version = "1.3.72"
 
     repositories {
         google()
         jcenter()
-        maven { url 'https://maven.fabric.io/public' }
     }
+
     dependencies {
         classpath "com.android.tools.build:gradle:$android_tools_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.fabric.tools:gradle:$fabric_version"
+        classpath "com.google.gms:google-services:$google_services"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:$firebase"
     }
 }
 
@@ -40,7 +44,6 @@ allprojects {
         google()
         jcenter()
         maven { url "https://jitpack.io" }
-        maven { url 'https://maven.fabric.io/public' }
     }
 }
 

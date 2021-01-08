@@ -1,14 +1,20 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'io.fabric'
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'com.google.firebase.crashlytics'
+}
 
 android {
-    compileSdkVersion rootProject.ext.compile_sdk_version
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
+
     defaultConfig {
         applicationId "com.firetv.infinitekitten"
-        minSdkVersion rootProject.ext.min_sdk_version
-        targetSdkVersion rootProject.ext.target_sdk_version
+        minSdkVersion 22
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -18,39 +24,56 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     //Android
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //Android Support Libraries
+    implementation "androidx.core:core-ktx:$androidx_core"
+    implementation "androidx.appcompat:appcompat:$androidx_core"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout"
+
+    implementation "com.android.support:support-annotations:$android_annotations"
     implementation "com.android.support:leanback-v17:$support_library_version"
     implementation "com.android.support:appcompat-v7:$support_library_version"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
-    implementation "com.android.support:palette-v7:$support_library_version"
 
-    //Crashlytics
-    implementation("com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar") {
-        transitive = true
-    }
+/*
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+*/
+    /*implementation "com.android.support:palette-v7:$support_library_version"*/
+
+    //Firebase & Crashlytics
+    implementation platform("com.google.firebase:firebase-bom:$firebase_bom")
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     //ExoMedia
     implementation "com.devbrackets.android:exomedia:$exomedia_version"
     implementation "com.devbrackets.android:playlistcore:$playlistcore_version"
 
     //Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.github.bumptech.glide:glide:$glide"
 
-    //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    //Networking
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp"
 
     //Segment
-    implementation "com.segment.analytics.android:analytics:$segment_version"
+    implementation "com.segment.analytics.android:analytics:$segment"
 
     //YouTubeExtractor
     implementation 'com.github.HaarigerHarald:android-youtubeExtractor:master-SNAPSHOT'
+    implementation 'androidx.palette:palette-ktx:1.0.0'
 
 }
 

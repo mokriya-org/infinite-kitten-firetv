@@ -3,12 +3,15 @@ package com.firetv.infinitekitten.service;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.annotation.NonNull;
+import android.graphics.drawable.Drawable;
+
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.devbrackets.android.playlistcore.components.image.ImageProvider;
 import com.firetv.infinitekitten.R;
 import com.firetv.infinitekitten.model.VideoPlaylistItem;
@@ -70,8 +73,8 @@ public class MediaImageProvider implements ImageProvider<VideoPlaylistItem> {
 
     @Override
     public void updateImages(@NotNull VideoPlaylistItem playlistItem) {
-        glide.load(playlistItem.getThumbnailUrl()).asBitmap().into(notificationImageTarget);
-        glide.load(playlistItem.getArtworkUrl()).asBitmap().into(remoteViewImageTarget);
+        glide.asBitmap().load(playlistItem.getThumbnailUrl()).into(notificationImageTarget);
+        glide.asBitmap().load(playlistItem.getArtworkUrl()).into(remoteViewImageTarget);
     }
 
     /**
@@ -80,11 +83,15 @@ public class MediaImageProvider implements ImageProvider<VideoPlaylistItem> {
      * <p>
      * <b>NOTE:</b> This is a Glide Image loader class
      */
-    private class NotificationImageTarget extends SimpleTarget<Bitmap> {
+    private class NotificationImageTarget extends CustomTarget<Bitmap> {
         @Override
-        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+        public void onResourceReady(@NonNull Bitmap resource, @androidx.annotation.Nullable Transition<? super Bitmap> transition) {
             notificationImage = resource;
             listener.onImageUpdated();
+        }
+
+        @Override
+        public void onLoadCleared(@androidx.annotation.Nullable Drawable placeholder) {
         }
     }
 
@@ -94,11 +101,15 @@ public class MediaImageProvider implements ImageProvider<VideoPlaylistItem> {
      * <p>
      * <b>NOTE:</b> This is a Glide Image loader class
      */
-    private class RemoteViewImageTarget extends SimpleTarget<Bitmap> {
+    private class RemoteViewImageTarget extends CustomTarget<Bitmap> {
         @Override
-        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+        public void onResourceReady(@NonNull Bitmap resource, @androidx.annotation.Nullable Transition<? super Bitmap> transition) {
             artworkImage = resource;
             listener.onImageUpdated();
+        }
+
+        @Override
+        public void onLoadCleared(@androidx.annotation.Nullable Drawable placeholder) {
         }
     }
 }

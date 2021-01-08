@@ -6,9 +6,9 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.support.v7.graphics.Palette
 import android.util.AttributeSet
 import android.view.View
+import androidx.palette.graphics.Palette
 import java.util.*
 
 /**
@@ -41,8 +41,7 @@ class LoadingIndicatorView(context: Context, attributeSet: AttributeSet) : View(
 
     private val radius = dpToPx(80)
     private val diameter = dpToPx(160)
-
-    private val pngList = context.assets.list("pngs")
+    private val pngList = context.assets.list("pngs")?.toList() ?: emptyList()
 
     var startAngle = 0.0f
 
