@@ -32,8 +32,9 @@ class LoadingFragment : Fragment() {
 
     fun setupUI() {
         context?.let { context ->
-            val bgImageUrl = Flickr.getFlickPhotoUrl()
-            if (bgImageUrl != null) Glide.with(context).load(bgImageUrl).dontAnimate().into(background)
+            Flickr.getFlickPhotoUrl()?.let { imageUrl ->
+                Glide.with(context).load(imageUrl).dontAnimate().into(background)
+            }
         }
 
         loadingIndicator.startAnimation(LoadingIndicatorAnimation(loadingIndicator).apply {
