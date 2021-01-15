@@ -1,8 +1,8 @@
 package com.firetv.infinitekitten.playlist
 
 import android.net.Uri
-import android.support.annotation.FloatRange
-import android.support.annotation.IntRange
+import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
 import com.devbrackets.android.exomedia.listener.*
 import com.devbrackets.android.exomedia.ui.widget.VideoView
 import com.devbrackets.android.playlistcore.api.MediaPlayerApi

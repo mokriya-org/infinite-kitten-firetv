@@ -4,11 +4,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.firetv.infinitekitten.R
 import com.firetv.infinitekitten.api.flickr.Flickr
@@ -31,8 +31,11 @@ class LoadingFragment : Fragment() {
     }
 
     fun setupUI() {
-        val bgImageUrl = Flickr.getFlickPhotoUrl()
-        if (bgImageUrl != null) Glide.with(context).load(bgImageUrl).dontAnimate().into(background)
+        context?.let { context ->
+            Flickr.getFlickPhotoUrl()?.let { imageUrl ->
+                Glide.with(context).load(imageUrl).dontAnimate().into(background)
+            }
+        }
 
         loadingIndicator.startAnimation(LoadingIndicatorAnimation(loadingIndicator).apply {
             duration = 500

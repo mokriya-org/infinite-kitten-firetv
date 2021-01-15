@@ -9,6 +9,7 @@ import at.huber.youtubeExtractor.YtFile
 import com.firetv.infinitekitten.api.ApiConstants
 import com.firetv.infinitekitten.api.youtube.YouTubeApiService
 import com.firetv.infinitekitten.api.youtube.model.playlist.PlaylistItemsResponse
+import com.firetv.infinitekitten.api.youtube.model.video.VideoItem
 import com.firetv.infinitekitten.api.youtube.model.video.VideosResponse
 import com.firetv.infinitekitten.manager.VideoLogManager
 import com.firetv.infinitekitten.model.VideoPlaylistItem
@@ -126,7 +127,11 @@ class YouTubeMediaItemFetcher(
                         }
 
                         response.body()?.let {
-                            val videoItem = it.items.first()
+                            val videoItem = it.items.firstOrNull()
+                            if (videoItem == null) {
+                                callback.onFailure()
+                                return
+                            }
 
                             fetchVideoUrl(videoId, callback = object : YouTubeVideoItemUrlCallback {
                                 override fun onFailure() {

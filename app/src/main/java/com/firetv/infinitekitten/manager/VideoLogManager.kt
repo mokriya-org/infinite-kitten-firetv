@@ -24,7 +24,7 @@ object VideoLogManager {
     fun clearLog(playlistId: String) = prefs.edit().putString(keyForPlaylistId(playlistId), "").apply()
 
     private fun logListOf(playlistId: String) = ArrayList<String>().apply {
-        addAll(prefs.getString(keyForPlaylistId(playlistId), "").split(","))
+        prefs.getString(keyForPlaylistId(playlistId), "")?.split(",")?.let { addAll(it) }
     }
 
     private fun keyForPlaylistId(playlistId: String) = "watched_${playlistId}_videos"

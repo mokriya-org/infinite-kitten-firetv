@@ -1,8 +1,6 @@
 package com.firetv.infinitekitten.service;
 
-
-import android.support.annotation.NonNull;
-
+import androidx.annotation.NonNull;
 import com.devbrackets.android.playlistcore.api.MediaPlayerApi;
 import com.devbrackets.android.playlistcore.components.playlisthandler.DefaultPlaylistHandler;
 import com.devbrackets.android.playlistcore.components.playlisthandler.PlaylistHandler;
